@@ -46,7 +46,6 @@ func _body_enter_portal(body, destination):
 func _teleportToNode(body, destination):
 	print(str(self) + "._teleportToNode("+str(body)+"," + str(destination)+")")
 	if overlaps_body(body) :
-		body.set_pos(Vector2(body.get_pos().x, body.get_pos().y+300))
 		body.set_collision_mask(destination.get_collision_layer())
 		body.set_layer_mask(destination.get_collision_layer())
 		body.get_parent().remove_child(body)
