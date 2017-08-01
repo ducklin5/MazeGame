@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Script/portal.gd" type="Script" id=1]
+
+[node name="Portal" type="Area2D"]
+
+input/pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 1 )
+
+[node name="Debug" type="Polygon2D" parent="."]
+
+polygon = Vector2Array(  )
+uv = Vector2Array(  )
+color = Color( 1, 1, 1, 1 )
+vertex_colors = ColorArray(  )
+offset = Vector2( 0, 0 )
+texture/texture = null
+texture/offset = Vector2( 0, 0 )
+texture/scale = Vector2( 1, 1 )
+texture/rotation = 0.0
+invert/enable = false
+invert/border = 100.0
+
+

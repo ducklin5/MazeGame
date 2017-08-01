@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resource_file type="PackedScene" subresource_count="20" version="2.2" version_name="Godot Engine v2.2.alpha.custom_build">
+	<ext_resource path="res://Spritesheets/Walls.png" type="Texture" index="0"></ext_resource>
+	<resource type="ConvexPolygonShape2D" path="local://82">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			-75, -75, 75, -75, 75, -25, -75, -25 </vector2_array>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://81">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 2 </int>
+		<vector2_array name="polygon" len="4"> 			-75, 50, 75, 50, 75, 0, -75, 0 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://84">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			-25, -125, 25, -125, 25, 25, -25, 25 </vector2_array>
+
+	</resource>
+	<resource type="CanvasItemShader" path="local://60">
+		<dictionary name="_code" shared="false">
+			<string> "fragment" </string>
+			<string> "uniform texture normal;&#000a;&#000a;vec2 ywnormal=tex( normal,UV).ag;&#000a;NORMAL=vec3(ywnormal,1);&#000a;" </string>
+			<string> "fragment_ofs" </string>
+			<int> 0 </int>
+			<string> "light" </string>
+			<string> "" </string>
+			<string> "light_ofs" </string>
+			<int> 0 </int>
+			<string> "vertex" </string>
+			<string> "//assign the local vertex coordinates to a varying&#000a;//the center coordinates (0,0) matches the sprite center &#000a;// (shows as a cross when the sprite is selected)&#000a;&#000a;VAR1.xy=SRC_VERTEX;&#000a;" </string>
+			<string> "vertex_ofs" </string>
+			<int> 0 </int>
+		</dictionary>
+
+	</resource>
+	<resource type="CanvasItemMaterial" path="local://61">
+		<resource name="shader/shader" resource_type="Shader" path="local://60">  </resource>
+		<int name="shader/shading_mode"> 0 </int>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://83">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 2 </int>
+		<vector2_array name="polygon" len="4"> 			-25, -125, 25, -125, 25, 75, -25, 75 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://75">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			-25, -25, -75, -25, -75, -75, 25, -75 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://76">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			-25, -25, 25, -75, 25, 25, -25, 25 </vector2_array>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://50">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 2 </int>
+		<vector2_array name="polygon" len="4"> 			-75, 0, 25, 0, 25, 50, -75, 50 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://72">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			25, 25, -25, 25, -25, -75, 25, -25 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://73">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			25, -25, -25, -75, 75, -75, 75, -25 </vector2_array>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://42">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 2 </int>
+		<vector2_array name="polygon" len="4"> 			75, 50, -25, 50, -25, 0, 75, 0 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://79">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			25, -25, -75, -25, -75, -75, -25, -75 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://80">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			25, -125, 25, -25, -25, -75, -25, -125 </vector2_array>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://58">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 0 </int>
+		<vector2_array name="polygon" len="4"> 			-75, 0, 25, 0, 25, 50, -75, 50 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://77">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			-25, -125, 25, -125, 25, -75, -25, -25 </vector2_array>
+
+	</resource>
+	<resource type="ConvexPolygonShape2D" path="local://78">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			75, -25, -25, -25, 25, -75, 75, -75 </vector2_array>
+
+	</resource>
+	<resource type="OccluderPolygon2D" path="local://57">
+		<bool name="closed"> True </bool>
+		<int name="cull_mode"> 0 </int>
+		<vector2_array name="polygon" len="4"> 			-25, 0, 75, 0, 75, 50, -25, 50 </vector2_array>
+
+	</resource>
+	<main_resource>
+		<dictionary name="_bundled" shared="false">
+			<string> "conn_count" </string>
+			<int> 0 </int>
+			<string> "conns" </string>
+			<int_array  len="0"> 				 </int_array>
+			<string> "editable_instances" </string>
+			<array  len="0" shared="false">
+			</array>
+			<string> "names" </string>
+			<string_array  len="42">
+				<string> "Walls" </string>
+				<string> "Node2D" </string>
+				<string> "N" </string>
+				<string> "editor/display_folded" </string>
+				<string> "transform/pos" </string>
+				<string> "texture" </string>
+				<string> "offset" </string>
+				<string> "region" </string>
+				<string> "region_rect" </string>
+				<string> "__meta__" </string>
+				<string> "Sprite" </string>
+				<string> "StaticBody2D" </string>
+				<string> "input/pickable" </string>
+				<string> "shapes/0/shape" </string>
+				<string> "shapes/0/transform" </string>
+				<string> "shapes/0/trigger" </string>
+				<string> "collision/layers" </string>
+				<string> "collision/mask" </string>
+				<string> "constant_linear_velocity" </string>
+				<string> "constant_angular_velocity" </string>
+				<string> "friction" </string>
+				<string> "bounce" </string>
+				<string> "CollisionPolygon2D" </string>
+				<string> "build_mode" </string>
+				<string> "polygon" </string>
+				<string> "shape_range" </string>
+				<string> "trigger" </string>
+				<string> "LightOccluder2D" </string>
+				<string> "visibility/visible" </string>
+				<string> "occluder" </string>
+				<string> "light_mask" </string>
+				<string> "S" </string>
+				<string> "E" </string>
+				<string> "material/material" </string>
+				<string> "W" </string>
+				<string> "N_E" </string>
+				<string> "shapes/1/shape" </string>
+				<string> "shapes/1/transform" </string>
+				<string> "shapes/1/trigger" </string>
+				<string> "N_W" </string>
+				<string> "S_E" </string>
+				<string> "S_W" </string>
+			</string_array>
+			<string> "node_count" </string>
+			<int> 33 </int>
+			<string> "node_paths" </string>
+			<array  len="0" shared="false">
+			</array>
+			<string> "nodes" </string>
+			<int_array  len="691"> 				-1, -1, 1, 0, -1, 0, 0, 0, 0, 10, 2, -1, 7, 3, 0, 4, 1, 5, 2, 6, 3, 7, 0, 8, 4, 9, 5, 0, 1, 0, 11, 11, -1, 11, 12, 6, 13, 7, 14, 8, 15, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 13, 0, 2, 0, 22, 22, -1, 5, 23, 14, 24, 15, 25, 10, 26, 6, 9, 16, 0, 1, 0, 27, 27, -1, 4, 28, 6, 29, 17, 30, 9, 9, 18, 0, 0, 0, 10, 31, -1, 7, 3, 0, 4, 19, 5, 2, 6, 3, 7, 0, 8, 20, 9, 21, 0, 5, 0, 11, 11, -1, 11, 12, 6, 13, 7, 14, 8, 15, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 13, 0, 6, 0, 22, 22, -1, 5, 23, 14, 24, 15, 25, 10, 26, 6, 9, 16, 0, 5, 0, 27, 27, -1, 4, 28, 6, 29, 17, 30, 9, 9, 18, 0, 0, 0, 10, 32, -1, 7, 3, 0, 4, 22, 5, 2, 6, 3, 7, 0, 8, 23, 9, 24, 0, 9, 0, 11, 11, -1, 12, 3, 0, 12, 6, 13, 25, 14, 8, 15, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 26, 0, 10, 0, 22, 22, -1, 5, 23, 14, 24, 27, 25, 10, 26, 6, 9, 28, 0, 9, 0, 27, 27, -1, 5, 28, 6, 33, 29, 29, 30, 30, 9, 9, 31, 0, 0, 0, 10, 34, -1, 7, 3, 0, 4, 32, 5, 2, 6, 3, 7, 0, 8, 33, 9, 34, 0, 13, 0, 11, 11, -1, 12, 3, 0, 12, 6, 13, 25, 14, 8, 15, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 26, 0, 14, 0, 22, 22, -1, 5, 23, 14, 24, 27, 25, 10, 26, 6, 9, 28, 0, 13, 0, 27, 27, -1, 5, 28, 6, 33, 29, 29, 30, 30, 9, 9, 31, 0, 0, 0, 10, 35, -1, 7, 3, 0, 4, 35, 5, 2, 6, 3, 7, 0, 8, 36, 9, 37, 0, 17, 0, 11, 11, -1, 14, 12, 6, 13, 38, 14, 8, 15, 6, 36, 39, 37, 8, 38, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 40, 0, 18, 0, 22, 22, -1, 5, 23, 14, 24, 41, 25, 42, 26, 6, 9, 43, 0, 17, 0, 27, 27, -1, 4, 28, 6, 29, 44, 30, 9, 9, 45, 0, 0, 0, 10, 39, -1, 7, 3, 0, 4, 46, 5, 2, 6, 3, 7, 0, 8, 47, 9, 48, 0, 21, 0, 11, 11, -1, 14, 12, 6, 13, 49, 14, 8, 15, 6, 36, 50, 37, 8, 38, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 51, 0, 22, 0, 22, 22, -1, 5, 23, 14, 24, 52, 25, 42, 26, 6, 9, 53, 0, 21, 0, 27, 27, -1, 4, 28, 6, 29, 54, 30, 9, 9, 55, 0, 0, 0, 10, 40, -1, 7, 3, 0, 4, 56, 5, 2, 6, 3, 7, 0, 8, 57, 9, 58, 0, 25, 0, 11, 11, -1, 14, 12, 6, 13, 59, 14, 8, 15, 6, 36, 60, 37, 8, 38, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 61, 0, 26, 0, 22, 22, -1, 5, 23, 14, 24, 62, 25, 42, 26, 6, 9, 63, 0, 25, 0, 27, 27, -1, 3, 28, 6, 29, 64, 30, 9, 0, 0, 0, 10, 41, -1, 7, 3, 0, 4, 65, 5, 2, 6, 3, 7, 0, 8, 66, 9, 67, 0, 29, 0, 11, 11, -1, 14, 12, 6, 13, 68, 14, 8, 15, 6, 36, 69, 37, 8, 38, 6, 16, 9, 17, 9, 18, 10, 19, 11, 20, 12, 21, 11, 9, 70, 0, 30, 0, 22, 22, -1, 5, 23, 14, 24, 71, 25, 42, 26, 6, 9, 72, 0, 29, 0, 27, 27, -1, 3, 28, 6, 29, 73, 30, 9, 0 </int_array>
+			<string> "variants" </string>
+			<array  len="74" shared="false">
+				<bool> True </bool>
+				<vector2> 225, 125 </vector2>
+				<resource  external="0">  </resource>
+				<vector2> 0, -50 </vector2>
+				<rect2> 150, 0, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<bool> False </bool>
+				<resource  resource_type="Shape2D" path="local://82">  </resource>
+				<matrix32> 1, 0, 0, 1, 0, 0 </matrix32>
+				<int> 1 </int>
+				<vector2> 0, 0 </vector2>
+				<real> 0 </real>
+				<real> 1 </real>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<int> 0 </int>
+				<vector2_array  len="4"> 					-75, -25, 75, -25, 75, -75, -75, -75 </vector2_array>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="OccluderPolygon2D" path="local://81">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 225, 425 </vector2>
+				<rect2> 150, 300, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 75, 275 </vector2>
+				<rect2> 0, 150, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="Shape2D" path="local://84">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2_array  len="4"> 					-25, -125, 25, -125, 25, 25, -25, 25 </vector2_array>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="CanvasItemMaterial" path="local://61">  </resource>
+				<resource  resource_type="OccluderPolygon2D" path="local://83">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 375, 275 </vector2>
+				<rect2> 300, 150, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 375, 125 </vector2>
+				<rect2> 300, 0, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="Shape2D" path="local://75">  </resource>
+				<resource  resource_type="Shape2D" path="local://76">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2_array  len="6"> 					-25, 25, 25, 25, 25, -75, -75, -75, -75, -25, -25, -25 </vector2_array>
+				<vector2> 0, 1 </vector2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="OccluderPolygon2D" path="local://50">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 75, 125 </vector2>
+				<rect2> 0, 0, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="Shape2D" path="local://72">  </resource>
+				<resource  resource_type="Shape2D" path="local://73">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2_array  len="6"> 					25, 25, 25, -25, 75, -25, 75, -75, -25, -75, -25, 25 </vector2_array>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="OccluderPolygon2D" path="local://42">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2> 375, 425 </vector2>
+				<rect2> 300, 300, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="Shape2D" path="local://79">  </resource>
+				<resource  resource_type="Shape2D" path="local://80">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2_array  len="6"> 					-75, -25, -75, -75, -25, -75, -25, -125, 25, -125, 25, -25 </vector2_array>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="OccluderPolygon2D" path="local://58">  </resource>
+				<vector2> 75, 425 </vector2>
+				<rect2> 0, 300, 150, 150 </rect2>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="Shape2D" path="local://77">  </resource>
+				<resource  resource_type="Shape2D" path="local://78">  </resource>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<vector2_array  len="6"> 					-25, -125, -25, -25, 75, -25, 75, -75, 25, -75, 25, -125 </vector2_array>
+				<dictionary  shared="false">
+					<string> "_edit_lock_" </string>
+					<bool> True </bool>
+				</dictionary>
+				<resource  resource_type="OccluderPolygon2D" path="local://57">  </resource>
+			</array>
+			<string> "version" </string>
+			<int> 2 </int>
+		</dictionary>
+
+	</main_resource>
+</resource_file>

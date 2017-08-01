@@ -1,0 +1,27 @@
+[gd_resource type="CanvasItemMaterial" load_steps=2 format=1]
+
+[sub_resource type="CanvasItemShader" id=1]
+
+_code = {
+"fragment": "uniform texture normal;
+
+vec2 ywnormal=tex( normal,UV).ag;
+NORMAL=vec3(ywnormal,1);
+",
+"fragment_ofs": 0,
+"light": "",
+"light_ofs": 0,
+"vertex": "//assign the local vertex coordinates to a varying
+//the center coordinates (0,0) matches the sprite center 
+// (shows as a cross when the sprite is selected)
+
+VAR1.xy=SRC_VERTEX;
+",
+"vertex_ofs": 0
+}
+
+[resource]
+
+shader/shader = SubResource( 1 )
+shader/shading_mode = 0
+

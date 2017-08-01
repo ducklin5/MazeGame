@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resource_file type="PackedScene" subresource_count="3" version="2.2" version_name="Godot Engine v2.2.alpha.custom_build">
+	<ext_resource path="res://Spritesheets/Floor_inner.png" type="Texture" index="0"></ext_resource>
+	<ext_resource path="res://Spritesheets/Floor_outer.png" type="Texture" index="1"></ext_resource>
+	<main_resource>
+		<dictionary name="_bundled" shared="false">
+			<string> "conn_count" </string>
+			<int> 0 </int>
+			<string> "conns" </string>
+			<int_array  len="0"> 				 </int_array>
+			<string> "editable_instances" </string>
+			<array  len="0" shared="false">
+			</array>
+			<string> "names" </string>
+			<string_array  len="25">
+				<string> "Ground" </string>
+				<string> "Node2D" </string>
+				<string> "Inner_Center" </string>
+				<string> "transform/pos" </string>
+				<string> "texture" </string>
+				<string> "offset" </string>
+				<string> "region" </string>
+				<string> "region_rect" </string>
+				<string> "Sprite" </string>
+				<string> "Inner_N" </string>
+				<string> "Inner_S" </string>
+				<string> "Inner_E" </string>
+				<string> "Inner_W" </string>
+				<string> "Inner_N_E" </string>
+				<string> "Inner_N_W" </string>
+				<string> "Inner_S_E" </string>
+				<string> "Inner_S_W" </string>
+				<string> "Outer_N" </string>
+				<string> "Outer_S" </string>
+				<string> "Outer_E" </string>
+				<string> "Outer_W" </string>
+				<string> "Outer_N_E" </string>
+				<string> "Outer_N_W" </string>
+				<string> "Outer_S_E" </string>
+				<string> "Outer_S_W" </string>
+			</string_array>
+			<string> "node_count" </string>
+			<int> 18 </int>
+			<string> "node_paths" </string>
+			<array  len="0" shared="false">
+			</array>
+			<string> "nodes" </string>
+			<int_array  len="296"> 				-1, -1, 1, 0, -1, 0, 0, 0, 0, 8, 2, -1, 5, 3, 0, 4, 1, 5, 2, 6, 3, 7, 4, 0, 0, 0, 8, 9, -1, 5, 3, 5, 4, 1, 5, 2, 6, 3, 7, 6, 0, 0, 0, 8, 10, -1, 5, 3, 7, 4, 1, 5, 2, 6, 3, 7, 8, 0, 0, 0, 8, 11, -1, 5, 3, 9, 4, 1, 5, 2, 6, 3, 7, 10, 0, 0, 0, 8, 12, -1, 5, 3, 11, 4, 1, 5, 2, 6, 3, 7, 12, 0, 0, 0, 8, 13, -1, 5, 3, 13, 4, 1, 5, 2, 6, 3, 7, 14, 0, 0, 0, 8, 14, -1, 5, 3, 15, 4, 1, 5, 2, 6, 3, 7, 16, 0, 0, 0, 8, 15, -1, 5, 3, 17, 4, 1, 5, 2, 6, 3, 7, 18, 0, 0, 0, 8, 16, -1, 5, 3, 19, 4, 1, 5, 2, 6, 3, 7, 20, 0, 0, 0, 8, 17, -1, 5, 3, 21, 4, 22, 5, 2, 6, 3, 7, 6, 0, 0, 0, 8, 18, -1, 5, 3, 23, 4, 22, 5, 2, 6, 3, 7, 8, 0, 0, 0, 8, 19, -1, 5, 3, 24, 4, 22, 5, 2, 6, 3, 7, 10, 0, 0, 0, 8, 20, -1, 5, 3, 25, 4, 22, 5, 2, 6, 3, 7, 12, 0, 0, 0, 8, 21, -1, 5, 3, 26, 4, 22, 5, 2, 6, 3, 7, 14, 0, 0, 0, 8, 22, -1, 5, 3, 27, 4, 22, 5, 2, 6, 3, 7, 16, 0, 0, 0, 8, 23, -1, 5, 3, 28, 4, 22, 5, 2, 6, 3, 7, 18, 0, 0, 0, 8, 24, -1, 5, 3, 29, 4, 22, 5, 2, 6, 3, 7, 20, 0 </int_array>
+			<string> "variants" </string>
+			<array  len="30" shared="false">
+				<vector2> 225, 275 </vector2>
+				<resource  external="0">  </resource>
+				<vector2> 0, -50 </vector2>
+				<bool> True </bool>
+				<rect2> 150, 150, 150, 150 </rect2>
+				<vector2> 225, 125 </vector2>
+				<rect2> 150, 0, 150, 150 </rect2>
+				<vector2> 225, 425 </vector2>
+				<rect2> 150, 300, 150, 150 </rect2>
+				<vector2> 375, 275 </vector2>
+				<rect2> 300, 150, 150, 150 </rect2>
+				<vector2> 75, 275 </vector2>
+				<rect2> 0, 150, 150, 150 </rect2>
+				<vector2> 375, 125 </vector2>
+				<rect2> 300, 0, 150, 150 </rect2>
+				<vector2> 75, 125 </vector2>
+				<rect2> 0, 0, 150, 150 </rect2>
+				<vector2> 375, 425 </vector2>
+				<rect2> 300, 300, 150, 150 </rect2>
+				<vector2> 75, 425 </vector2>
+				<rect2> 0, 300, 150, 150 </rect2>
+				<vector2> 675, 125 </vector2>
+				<resource  external="1">  </resource>
+				<vector2> 675, 425 </vector2>
+				<vector2> 825, 275 </vector2>
+				<vector2> 525, 275 </vector2>
+				<vector2> 825, 125 </vector2>
+				<vector2> 525, 125 </vector2>
+				<vector2> 825, 425 </vector2>
+				<vector2> 525, 425 </vector2>
+			</array>
+			<string> "version" </string>
+			<int> 2 </int>
+		</dictionary>
+
+	</main_resource>
+</resource_file>

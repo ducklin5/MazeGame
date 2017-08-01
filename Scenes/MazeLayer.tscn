@@ -1,0 +1,100 @@
+[gd_scene load_steps=7 format=1]
+
+[ext_resource path="res://Scenes/Walls.xml" type="TileSet" id=1]
+[ext_resource path="res://Script/MazeGen.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Ground.xml" type="TileSet" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+
+shader/shading_mode = 0
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Node2D\n\nvar WallColor = Color(1,0,0)\nonready var size = get_parent().get_cell_size()\n\nfunc _draw():\n\tfor c in range(0,get_parent().cols):\n\t\tfor r in range(0,get_parent().rows):\n\t\t\tvar I = Vector2(0,0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar J = Vector2(size.x, 0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar K = Vector2( size.x, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar L = Vector2(0, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar cellTop = get_parent().grid[c][r].find(0) != -1\n\t\t\tvar cellRight = get_parent().grid[c][r].find(1) != -1\n\t\t\tvar cellBottom = get_parent().grid[c][r].find(2) != -1\n\t\t\tvar cellLeft = get_parent().grid[c][r].find(3) != -1\n\t\t\tif cellTop:\n\t\t\t\tdraw_line(I, J, WallColor,5)\n\t\t\tif cellRight:\n\t\t\t\tdraw_line(J, K, WallColor,5)\n\t\t\tif cellBottom:\n\t\t\t\tdraw_line(K, L, WallColor,5)\n\t\t\tif cellLeft:\n\t\t\t\tdraw_line(L, I, WallColor,5)\n\t\t\t\t\n\t\t\tdraw_line(I, J, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(J, K, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(K, L, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(L, I, Color(0,0.95,0,0.2),3)\n"
+
+[sub_resource type="GDScript" id=3]
+
+script/source = "extends Node2D\nonready var mapRoot = get_parent()\nonready var size = mapRoot.get_cell_size()\nvar divisions = 3\nonready var floorSize = size / divisions\nfunc _draw():\n\tfor c in range(0,mapRoot.cols):\n\t\tfor r in range(0,mapRoot.rows):\n\t\t\tvar I = Vector2(0,0) + Vector2(size.x * c, size.y * r)\n\t\t\tfor i in range (divisions):\n\t\t\t\tfor j in range(divisions):\n\t\t\t\t\tvar q = Vector2(I.x + floorSize.x*i,I.y + floorSize.y*j)\n\t\t\t\t\tvar w = Vector2(q.x + floorSize.x, q.y)\n\t\t\t\t\tvar e = Vector2(q.x, q.y + floorSize.y)\n\t\t\t\t\tvar r = Vector2(q.x + floorSize.x, q.y + floorSize.y)\n\t\t\t\t\t\n\t\t\t\t\tdraw_line(q, w, Color(1,0.95,0,0.2))\n\t\t\t\t\tdraw_line(q, e, Color(1,0.95,0,0.2))\n\t\t\t\t\tdraw_line(w, r, Color(1,0.95,0,0.2))\n\t\t\t\t\tdraw_line(e, r, Color(1,0.95,0,0.2))\n"
+
+[node name="MazeFloor" type="TileMap"]
+
+material/material = SubResource( 1 )
+transform/pos = Vector2( 0, 4 )
+transform/scale = Vector2( 0.15, 0.15 )
+mode = 0
+tile_set = ExtResource( 1 )
+cell/size = Vector2( 150, 150 )
+cell/quadrant_size = 4
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = true
+collision/use_kinematic = true
+collision/friction = 0.0
+collision/bounce = 2.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 4
+tile_data = IntArray( 524288, 4, 589824, 6 )
+script/script = ExtResource( 2 )
+randomSeed = 1
+roomsValue = 1
+
+[node name="DebuggerMap" type="Node2D" parent="."]
+
+transform/scale = Vector2( 3, 3 )
+z/z = 200
+script/script = SubResource( 2 )
+
+[node name="DebuggerGrid" type="Node2D" parent="."]
+
+visibility/visible = false
+transform/scale = Vector2( 3, 3 )
+z/z = 200
+script/script = SubResource( 3 )
+
+[node name="Floor" type="TileMap" parent="."]
+
+z/z = -410
+mode = 0
+tile_set = ExtResource( 3 )
+cell/size = Vector2( 150, 150 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray(  )
+
+[node name="Ceiling" type="TileMap" parent="."]
+
+z/z = -410
+mode = 0
+tile_set = ExtResource( 3 )
+cell/size = Vector2( 150, 150 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray(  )
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="Portals" type="Node2D" parent="."]
+
+z/z = 10
+
+
