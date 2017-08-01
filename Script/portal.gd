@@ -34,8 +34,9 @@ func _ready():
 	get_child(0).set_color(color)
 	
 func _body_enter_portal(body, destination):
-	if body.get("canTeleport") == true:
+	if body.get("canTeleport") != null:
 		print(str(self) + "._body_enter_portal("+str(body)+"," + str(destination)+")")
+	if body.get("canTeleport") == true:
 		if body.is_in_group("player"):
 			body.portalCountDown()
 			body.portalTimer.connect("timeout", self, "_teleportToNode", [body, destination])
@@ -45,17 +46,18 @@ func _body_enter_portal(body, destination):
 func _teleportToNode(body, destination):
 	print(str(self) + "._teleportToNode("+str(body)+"," + str(destination)+")")
 	if overlaps_body(body) :
-		body.set_pos(Vector2(0,0))
-		body.update()
-		update()
+		body.set_pos(Vector2(body.get_pos().x, body.get_pos().y+300))
 		body.set_collision_mask(destination.get_collision_layer())
 		body.set_layer_mask(destination.get_collision_layer())
 		body.get_parent().remove_child(body)
-		#body.motion *= -1
+		body.motion *= -1
 		body.canTeleport = false
+		
 		destination.add_child(body)
+		
 		if body.is_in_group("player"):
 			body.disablePortalProg()
+		
 
 func _body_exit_portal(body):
 	print(str(self) + "._body_exit_portal("+str(body)+")")
@@ -65,8 +67,6 @@ func _body_exit_portal(body):
 		#if the body exited the portal and timer is still connected
 		if body.portalTimer.is_connected("timeout", self, "_teleportToNode"):
 			body.portalTimer.disconnect("timeout", self, "_teleportToNode")
-	#if it can't teleport enable Teleporting
-	if !body.canTeleport:
+	if body.canTeleport == false:
 		body.canTeleport = true
-	#print(body.get_parent().get_name())
 	

@@ -4,7 +4,7 @@ var shooter
 var hasLeftShooter = false
 var canTeleport = true
 var motion=Vector2(1,0)
-const ADVANCE_SPEED = 150
+const ADVANCE_SPEED = 10
 
 var hit=false
 onready var sprite = get_node("Sprite")

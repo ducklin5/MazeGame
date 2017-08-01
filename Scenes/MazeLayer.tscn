@@ -42,6 +42,7 @@ roomsValue = 1
 
 [node name="DebuggerMap" type="Node2D" parent="."]
 
+visibility/visible = false
 transform/scale = Vector2( 3, 3 )
 z/z = 200
 script/script = SubResource( 2 )
