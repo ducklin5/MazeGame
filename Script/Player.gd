@@ -57,6 +57,8 @@ func _ready():
 	set_process_input(true)
 	set_fixed_process(true)
 	var HUD = get_tree().get_root().get_node("HUD")
+	if !portalTimer.is_connected("timeout", self, "disablePortalProg"):
+		portalTimer.connect("timeout", self, "disablePortalProg")
 	if is_network_master() && !health.is_connected("healthChanged", HUD, "_on_Health_healthChanged"):
 		health.connect("healthChanged", HUD, "_on_Health_healthChanged")
 
@@ -138,16 +140,19 @@ func _input(ev):
 slave func shoot(dir = (get_global_mouse_pos() -  get_global_pos()).normalized()):
 	var bullet = preload("res://Scenes/Bullet.tscn").instance()
 	
-	bullet.shooter = self
+	bullet.shooter = {"id" : get_name(), "name" : get_player_name()}
 	bullet.motion = dir
 	bullet.set_layer_mask(get_layer_mask())
 	bullet.set_collision_mask(get_layer_mask())
 	get_parent().add_child(bullet)
 	bullet.set_pos(get_pos())
-	#bullet.set_pos(get_pos()+canonYScale*500*dir)
+
 
 func set_player_name(name):
 	get_node("label").set_text(name)
+
+func get_player_name():
+	return get_node("label").get_text()
 
 func set_player_color(color):
 	get_node("BlockTop").set_modulate(color)

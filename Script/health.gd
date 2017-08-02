@@ -7,7 +7,7 @@ var healMultiplier = 1
 signal healthChanged(current,maximum)
 signal dead
 
-func hit(x):
+func hit(x, shooter):
 	var finalHit = x * hitMultiplier
 	if health < finalHit:
 		finalHit = health
@@ -20,6 +20,15 @@ func hit(x):
 	
 	if health == 0:
 		emit_signal("dead")
+		if shooter.id == get_parent().get_name():
+			print("SUICIDAL MANIAC!")
+		else:
+			print("killed by: " + shooter.name)
+	else:
+		if shooter.id == get_parent().get_name():
+			print("Why are hitting yourself?")
+		else:
+			print("hit by: " + shooter.name)
 
 func heal(x):
 	health -= x * healMultiplier

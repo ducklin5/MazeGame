@@ -99,7 +99,7 @@ sync func pre_start_game(peer2spawnPoint):
 		
 		if get_tree().get_network_unique_id() == p_id:
 			player.set_network_mode(NETWORK_MODE_MASTER)
-			#player.get_node("camera").make_current()
+			player.get_node("camera").make_current()
 			var HUD = load("res://Scenes/HUD.tscn").instance()
 			get_parent().add_child(HUD)
 		else:

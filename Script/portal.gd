@@ -27,45 +27,62 @@ func _ready():
 	polygon.set_points(points)
 	add_shape(polygon)
 	translate(wallPos)
-	connect("body_enter",self,"_body_enter_portal", [destination])
-	connect("body_exit",self,"_body_exit_portal")
-	
 	get_child(0).set_polygon(points)
 	get_child(0).set_color(color)
-	
+	connect("body_enter",self,"_body_enter_portal", [destination])
+	connect("body_exit",self,"_body_exit_portal")
+
 func _body_enter_portal(body, destination):
-	if body.get("canTeleport") != null:
-		print(str(self) + "._body_enter_portal("+str(body)+"," + str(destination)+")")
 	if body.get("canTeleport") == true:
 		if body.is_in_group("player"):
 			body.portalCountDown()
 			body.portalTimer.connect("timeout", self, "_teleportToNode", [body, destination])
 		else:
 			_teleportToNode(body, destination)
-		
+	elif body.has_user_signal("portalMe"):
+		body.connect("portalMe", self, "_teleportToNode", [body, destination])
+
 func _teleportToNode(body, destination):
-	print(str(self) + "._teleportToNode("+str(body)+"," + str(destination)+")")
-	if overlaps_body(body) :
-		body.set_collision_mask(destination.get_collision_layer())
-		body.set_layer_mask(destination.get_collision_layer())
-		body.get_parent().remove_child(body)
-		body.motion *= -1
-		body.canTeleport = false
-		
-		destination.add_child(body)
-		
+	if body != null:
+		var newbody = clone(body)
 		if body.is_in_group("player"):
-			body.disablePortalProg()
-		
+			newbody.portalTimer.disconnect("timeout", self, "_teleportToNode")
+			newbody.get_node("camera").make_current()
+			body.get_node("camera").clear_current()
+			newbody.disablePortalProg()
+		newbody.set_collision_mask(destination.get_collision_layer())
+		newbody.set_layer_mask(destination.get_collision_layer())
+		newbody.canTeleport = false
+		newbody.motion *= -1
+		destination.add_child(newbody)
+		body.queue_free()
+
+func clone(node):
+	var newNode = node.duplicate()
+	#replicate properties of parent node
+	replicateProperties(node,newNode)
+	#replicate properties of child tree nodes
+	replicateChildProperties(node,newNode)
+	return newNode
+func replicateChildProperties(fromNode,toNode):
+	if fromNode.get_child_count() > 0:
+		for child in fromNode.get_children():
+			var i = child.get_index()
+			replicateProperties(child,toNode.get_child(i))
+			replicateChildProperties(child,toNode.get_child(i))
+	
+func replicateProperties(fromNode,toNode):
+	for property in fromNode.get_property_list():
+		if property.usage == PROPERTY_USAGE_SCRIPT_VARIABLE or property.usage == PROPERTY_USAGE_NETWORK : 
+					toNode[property.name] = fromNode[property.name]
 
 func _body_exit_portal(body):
-	print(str(self) + "._body_exit_portal("+str(body)+")")
-	#if the player timer is still running, stop it
 	if body.is_in_group("player"):
 		body.disablePortalProg()
-		#if the body exited the portal and timer is still connected
 		if body.portalTimer.is_connected("timeout", self, "_teleportToNode"):
 			body.portalTimer.disconnect("timeout", self, "_teleportToNode")
 	if body.canTeleport == false:
 		body.canTeleport = true
+	if body.has_user_signal("portalMe") and body.is_connected("portalMe", self, "_teleportToNode"):
+		body.disconnect("portalMe", self, "_teleportToNode")
 	

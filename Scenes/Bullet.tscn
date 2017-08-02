@@ -72,8 +72,4 @@ shape = SubResource( 1 )
 trigger = true
 _update_shape_index = 0
 
-[connection signal="body_enter" from="area" to="." method="_on_area_body_enter"]
-
-[connection signal="body_exit" from="area" to="." method="_on_area_body_exit"]
-
 

@@ -267,6 +267,4 @@ autostart = false
 
 [node name="Health" parent="." instance=ExtResource( 6 )]
 
-[connection signal="timeout" from="portalTimer" to="." method="disablePortalProg"]
-
 
