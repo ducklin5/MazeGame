@@ -92,6 +92,8 @@ func begin_game():
 sync func pre_start_game(peer2spawnPoint):
 	#hide the lobby
 	get_tree().get_root().get_node("lobby").hide()
+	var HUD = load("res://Scenes/HUD.tscn").instance()
+	get_parent().add_child(HUD)
 	var player_scene = load("res://Scenes/Player.tscn")
 	for p_id in peer2spawnPoint:
 		var spawn = peer2spawnPoint[p_id]
@@ -99,9 +101,8 @@ sync func pre_start_game(peer2spawnPoint):
 		
 		if get_tree().get_network_unique_id() == p_id:
 			player.set_network_mode(NETWORK_MODE_MASTER)
-			player.get_node("camera").make_current()
-			var HUD = load("res://Scenes/HUD.tscn").instance()
-			get_parent().add_child(HUD)
+			#player.get_node("camera").make_current()
+			
 		else:
 			player.set_network_mode(NETWORK_MODE_SLAVE)
 		
