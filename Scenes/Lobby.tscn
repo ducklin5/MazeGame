@@ -133,7 +133,6 @@ flat = false
 
 [node name="Join" type="Tabs" parent="connect/Tabs"]
 
-editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -159,6 +158,7 @@ margin/bottom = 168.0
 
 [node name="joinIP" type="Control" parent="connect/Tabs/Join"]
 
+editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -283,8 +283,25 @@ shortcut = null
 text = "Join Game"
 flat = false
 
+[node name="Button" type="Button" parent="connect/Tabs/Join"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 79.0
+margin/top = 230.0
+margin/right = 166.0
+margin/bottom = 264.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Refresh List"
+flat = false
+
 [node name="Settings" type="Tabs" parent="connect/Tabs"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -421,6 +438,8 @@ flat = false
 [connection signal="pressed" from="connect/Tabs/Host/hostButton" to="." method="_on_hostButton_pressed"]
 
 [connection signal="pressed" from="connect/Tabs/Join/joinButton" to="." method="_on_joinButton_pressed"]
+
+[connection signal="pressed" from="connect/Tabs/Join/Button" to="." method="refresh_hostList"]
 
 [connection signal="text_changed" from="connect/Tabs/Settings/nick" to="." method="_on_nick_text_changed"]
 
