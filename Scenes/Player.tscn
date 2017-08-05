@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=1]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
-[ext_resource path="res://Spritesheets/Player.png" type="Texture" id=2]
-[ext_resource path="res://Spritesheets/cannon.png" type="Texture" id=3]
+[ext_resource path="res://Spritesheets/cannon.png" type="Texture" id=2]
+[ext_resource path="res://Spritesheets/Player.png" type="Texture" id=3]
 [ext_resource path="res://Spritesheets/kirby.png" type="Texture" id=4]
 [ext_resource path="res://Spritesheets/Halo.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=6]
@@ -98,23 +98,15 @@ collision/margin = 0.001
 script/script = ExtResource( 1 )
 canTeleport = true
 
-[node name="BlockBottom" type="Sprite" parent="."]
-
-visibility/visible = false
-texture = ExtResource( 2 )
-offset = Vector2( 0, 35 )
-region = true
-region_rect = Rect2( 0, 75, 75, 38 )
-
 [node name="Canon" type="Sprite" parent="."]
 
 visibility/visible = false
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 offset = Vector2( 0, 40 )
 
-[node name="BlockTop" type="Sprite" parent="."]
+[node name="Block" type="Sprite" parent="."]
 
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 region_rect = Rect2( 0, 0, 75, 75 )
 
 [node name="CollisionCanon" type="CollisionPolygon2D" parent="."]

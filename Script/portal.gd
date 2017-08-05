@@ -47,8 +47,12 @@ func _teleportToNode(body, destination):
 		var newbody = clone(body)
 		if body.is_in_group("player"):
 			newbody.portalTimer.disconnect("timeout", self, "_teleportToNode")
-			newbody.get_node("camera").make_current()
-			body.get_node("camera").clear_current()
+			if body.is_network_master():
+				newbody.set_network_mode(NETWORK_MODE_MASTER)
+				#newbody.get_node("camera").make_current()
+				#body.get_node("camera").clear_current()
+			else:
+				newbody.set_network_mode(NETWORK_MODE_SLAVE)
 			newbody.disablePortalProg()
 		newbody.set_collision_mask(destination.get_collision_layer())
 		newbody.set_layer_mask(destination.get_collision_layer())
@@ -73,7 +77,7 @@ func replicateChildProperties(fromNode,toNode):
 	
 func replicateProperties(fromNode,toNode):
 	for property in fromNode.get_property_list():
-		if property.usage == PROPERTY_USAGE_SCRIPT_VARIABLE or property.usage == PROPERTY_USAGE_NETWORK : 
+		if property.usage == PROPERTY_USAGE_SCRIPT_VARIABLE : 
 					toNode[property.name] = fromNode[property.name]
 
 func _body_exit_portal(body):
@@ -81,7 +85,7 @@ func _body_exit_portal(body):
 		body.disablePortalProg()
 		if body.portalTimer.is_connected("timeout", self, "_teleportToNode"):
 			body.portalTimer.disconnect("timeout", self, "_teleportToNode")
-	if body.canTeleport == false:
+	if body.get("canTeleport") == false:
 		body.canTeleport = true
 	if body.has_user_signal("portalMe") and body.is_connected("portalMe", self, "_teleportToNode"):
 		body.disconnect("portalMe", self, "_teleportToNode")
