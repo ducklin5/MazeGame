@@ -1,35 +1,32 @@
 extends TileMap
 
-
-export var randomSeed = 1
-var cols = 4
-var rows = 4
+var randomSeed = 10
+var cols = 5
+var rows = 5
 
 enum {N=0,E=1,S=2,W=3}
 
 onready var SpawnPoints = get_node("SpawnPoints")
 
-#const room = preload("res://Scenes/Room.tscn")
-export var roomsValue = 1
+var roomsValue = 1
 var rooms = []
 
-var start = Vector2(0,0)
 var grid = []
-var current
+var current = Vector2(randi()%cols,randi()%rows)
 var visited = []
 
 var portals = {}
 
+signal mazePercentDone(x)
 #debugging
 #timer for debugging
 var t
 
 func _ready():
 	rand_seed(randomSeed)
-	
-	t = Timer.new()
-	t.set_wait_time(2)
-	t.set_one_shot(true)
+	#t = Timer.new()
+	#t.set_wait_time(0.001)
+	#t.set_one_shot(true)
 	#self.add_child(t)
 	
 	# make a 2d array that save a [N,E,S,W] array for each cell
@@ -39,11 +36,16 @@ func _ready():
 			grid[c].append([N,E,S,W])
 			pass
 	
-	set_fixed_process(true)
 	makeRooms (roomsValue , grid)
 	createSpawnPoints()
-	rBactrackMaze(grid)
+	emit_signal("mazePercentDone", 25)
 	updateAll()
+	current = rooms[0].position
+	var uncarved = rows*cols - visited.size()
+	drunkardWalk(grid, uncarved*0.6)
+	rBactrackMaze(grid, uncarved*0.3)
+	updateAll()
+
 
 
 class room:
@@ -60,7 +62,8 @@ class room:
 		return Cells.size()
 
 func makeRooms (noOfRooms , grid):
-	while rooms.size() < noOfRooms :
+	for x in range (noOfRooms):
+	#while rooms.size() < noOfRooms :
 		#randomize()
 		#pick a random room size and position
 		var roomSize = Vector2(2,2)
@@ -97,18 +100,39 @@ func makeRooms (noOfRooms , grid):
 			rooms.append(randRoom)
 			
 	update()
+
+func drunkardWalk(grid,x):
+	var carved = 0
+	if visited.find(current) == -1 and x>0:
+		visited.append(current)
+		carved += 1
 	
-func rBactrackMaze (grid):
-	#randomize()
-	var prevStack = []
-	var waitForDeadEnd = 0
-	var imperfect = 20
+	while carved < ceil(x) and visited.size() < cols * rows :
+		#t.start()
+		#yield(t, "timeout")
+		#get all neighbors
+		var visitedNeighbors = checkNeighbors(current, grid, true)
+		var unvisitedNeighbors = checkNeighbors(current, grid, false)
+		var neighbors = visitedNeighbors
+		for u in unvisitedNeighbors:
+			neighbors.append(u)
+		var next = neighbors[rand_range(0,neighbors.size())]
+		removeWalls(next,current,grid)
+		if visited.find(next) == -1:
+			visited.append(next)
+			carved+=1
+		current = next
+		#updateAll()
+	return true
+	
+func rBactrackMaze (grid,x):
+	var carved = 0
 	var next
 	var stack = []
-	current = start
-	visited.append(current)
-	var notDone = true
-	while notDone:
+	if visited.find(current) == -1 and x>0:
+		visited.append(current)
+		carved += 1
+	while carved < ceil(x) and visited.size() < cols * rows:
 		#timmer for debugging
 		#t.start()
 		#yield(t, "timeout")
@@ -119,37 +143,28 @@ func rBactrackMaze (grid):
 			removeWalls(next,current,grid)
 			stack.append(current)
 			visited.append(next)
+			carved += 1
 			current = next
 		elif(stack.size() > 0):
-			#randomize()
-			if(stack.size() > prevStack.size()):
-				neighbors = checkNeighbors(current, grid, true)
-				next = neighbors[rand_range(0, neighbors.size())]
-				removeWalls(next,current,grid)
-			prevStack = stack
+			var neighbors = checkNeighbors(current, grid, true)
+			next = neighbors[rand_range(0, neighbors.size())]
+			removeWalls(next,current,grid)
 			current = stack[-1]
 			stack.pop_back()
-		elif(visited.size() < cols * rows):
-			prevStack = []
-			var searching = true
-			for r in range (0, rows):
-				if searching:
-					for c in range (0, cols):
-						if visited.find(Vector2(c,r)) == -1:
-							current = Vector2(c,r); 
-							searching = false
-							break;
-				else: break;
 		else:
-			
-			notDone = false
-			pass
-		updateAll()
+			var v = 0; var searching = true
+			while v < visited.size() and searching:
+				if checkNeighbors(visited[v], grid, false).size() > 0:
+					searching = false;
+					current = visited[v]; 
+				v+=1
+		#updateAll()
+func mergeRoomMaze():
 	# merge maze with rooms
-	#list all outer roooms
+	#list all outer rooom cells
 	for i in rooms:
 		var roomDoor = null
-		var roomOuterCells = []		
+		var roomOuterCells = []
 		for j in i.Cells:
 			if j.x == i.position.x || j.x == i.position.x + i.size.x - 1 || j.y == i.position.y || j.y == i.position.y + i.size.y - 1 :
 				roomOuterCells.append(j)
@@ -163,8 +178,7 @@ func rBactrackMaze (grid):
 			if outOfRoomNeighbors.size()>0:
 				roomDoor = possibleDoor
 				removeWalls(roomDoor,outOfRoomNeighbors[floor(rand_range(0,outOfRoomNeighbors.size()))], grid)
-	updateAll()
-	
+		#updateAll()
 
 ## returns all  neighbors
 func checkNeighbors (vectorPos, grid, isVisited):
@@ -269,10 +283,9 @@ func updateAll():
 		set_cell(i.x,i.y,-1)
 	for c in range(0,cols):
 		for r in range(0,rows):
-			drawWalls(Vector2(c,r),grid)
-			#up date debugging map
-			#get_child(0).set_pos(Vector2((cols+1)*3*get_cell_size().x,0))
-			get_child(0).update()
+			if visited.find(Vector2(c,r)) != -1:
+				drawWalls(Vector2(c,r),grid)
+	get_child(0).update()
 
 #creater a spawn point
 func createSpawnPoints():

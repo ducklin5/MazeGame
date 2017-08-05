@@ -10,7 +10,7 @@ shader/shading_mode = 0
 
 [sub_resource type="GDScript" id=2]
 
-script/source = "extends Node2D\n\nvar WallColor = Color(1,0,0)\nonready var size = get_parent().get_cell_size()\n\nfunc _draw():\n\tfor c in range(0,get_parent().cols):\n\t\tfor r in range(0,get_parent().rows):\n\t\t\tvar I = Vector2(0,0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar J = Vector2(size.x, 0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar K = Vector2( size.x, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar L = Vector2(0, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar cellTop = get_parent().grid[c][r].find(0) != -1\n\t\t\tvar cellRight = get_parent().grid[c][r].find(1) != -1\n\t\t\tvar cellBottom = get_parent().grid[c][r].find(2) != -1\n\t\t\tvar cellLeft = get_parent().grid[c][r].find(3) != -1\n\t\t\tif cellTop:\n\t\t\t\tdraw_line(I, J, WallColor,5)\n\t\t\tif cellRight:\n\t\t\t\tdraw_line(J, K, WallColor,5)\n\t\t\tif cellBottom:\n\t\t\t\tdraw_line(K, L, WallColor,5)\n\t\t\tif cellLeft:\n\t\t\t\tdraw_line(L, I, WallColor,5)\n\t\t\t\t\n\t\t\tdraw_line(I, J, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(J, K, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(K, L, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(L, I, Color(0,0.95,0,0.2),3)\n"
+script/source = "extends Node2D\n\nvar WallColor = Color(1,0,0)\nonready var size = get_parent().get_cell_size()\n\nfunc _draw():\n\tdraw_rect(Rect2(150*get_parent().current.x,150*get_parent().current.y,150,150),Color(1,0,0,0.7))\n\tfor c in range(0,get_parent().cols):\n\t\tfor r in range(0,get_parent().rows):\n\t\t\tvar I = Vector2(0,0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar J = Vector2(size.x, 0) + Vector2(size.x * c, size.y * r)\n\t\t\tvar K = Vector2( size.x, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar L = Vector2(0, size.y) + Vector2(size.x * c, size.y * r)\n\t\t\tvar cellTop = get_parent().grid[c][r].find(0) != -1\n\t\t\tvar cellRight = get_parent().grid[c][r].find(1) != -1\n\t\t\tvar cellBottom = get_parent().grid[c][r].find(2) != -1\n\t\t\tvar cellLeft = get_parent().grid[c][r].find(3) != -1\n\t\t\tif cellTop:\n\t\t\t\tdraw_line(I, J, WallColor,5)\n\t\t\tif cellRight:\n\t\t\t\tdraw_line(J, K, WallColor,5)\n\t\t\tif cellBottom:\n\t\t\t\tdraw_line(K, L, WallColor,5)\n\t\t\tif cellLeft:\n\t\t\t\tdraw_line(L, I, WallColor,5)\n\t\t\t\t\n\t\t\tdraw_line(I, J, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(J, K, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(K, L, Color(0,0.95,0,0.2),3)\n\t\t\tdraw_line(L, I, Color(0,0.95,0,0.2),3)\n"
 
 [sub_resource type="GDScript" id=3]
 
@@ -35,10 +35,8 @@ collision/bounce = 2.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 4
-tile_data = IntArray( 524288, 4, 589824, 6 )
+tile_data = IntArray(  )
 script/script = ExtResource( 2 )
-randomSeed = 1
-roomsValue = 1
 
 [node name="DebuggerMap" type="Node2D" parent="."]
 
