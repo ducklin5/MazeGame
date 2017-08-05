@@ -17,6 +17,20 @@ func _ready():
 			 yourIP.add_item (i)
 	gamestate.connect("player_list_changed", self, "refresh_lobby")
 
+func refresh_hostList():
+	var host = NetworkedMultiplayerENet.new()
+	
+	for x in range(168,169):
+		for y in range(8,9):
+			for z in range(100,200):
+				#print("resloving "+str(192)+"."+str(x)+"."+str(y)+"."+str(z))
+				host.create_client(str(192)+"."+str(x)+"."+str(y)+"."+str(z), 10567)
+				host.poll()
+				host.close_connection()
+	
+	
+	
+
 func _on_hostButton_pressed():
 	if (find_node("nick").get_text() == ""):
 		invalidNick()
