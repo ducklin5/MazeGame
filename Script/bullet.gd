@@ -4,7 +4,7 @@ var shooter = {"id" : "0", "name" : "unknown"}
 var hasLeftShooter = false
 var canTeleport = false
 var motion=Vector2(1,0)
-const ADVANCE_SPEED = 12
+const ADVANCE_SPEED = 200
 
 signal portalMe
 
