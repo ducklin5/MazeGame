@@ -4,7 +4,7 @@ const mazeLayerScene = preload("res://Scenes/MazeLayer.tscn")
 var layers = 2
 var randomSeed = 1
 var SpawnPoints = []
-var portals = 4
+var portalTries = 3
 
 func _ready():
 	var mazeLayer
@@ -15,7 +15,7 @@ func _ready():
 		mazeLayer.set_name(str(l))
 		mazeLayer.set_collision_layer(pow(2,l))
 		mazeLayer.set_collision_mask(pow(2,l))
-		mazeLayer.set_pos(Vector2(l*300,10))
+		mazeLayer.set_pos(Vector2((l*mazeLayer.cols+l)*(150*3)*0.15,10))
 		#mazeLayer.hide()
 		add_child(mazeLayer)
 		for c in mazeLayer.get_node("SpawnPoints").get_children():
@@ -43,13 +43,17 @@ func createPortals():
 		var nextMaze = get_node(str(next))
 		
 		var commonWalls = []
-		for c in range(thisMaze.cols):
-			for r in range(thisMaze.rows):
-				var w = commonWallCheck(thisMaze.grid,nextMaze.grid,c,r)
+		#for evevry visited cell in this maze
+		for vcell in thisMaze.visited:
+			#check if the next maze has this cell as visited too
+			if nextMaze.visited.find(vcell) != -1:
+				#check if this cell shares a walls on both mazes
+				var w = commonWallCheck(thisMaze.grid,nextMaze.grid,vcell.x,vcell.y)
+				#if it does then store the cell position and its shared walls in the commonWalls array
 				if w.size() != 0:
-					commonWalls.append({"pos":Vector2(c,r),"walls":w})
+					commonWalls.append({"pos":Vector2(vcell.x,vcell.y),"walls":w})
 		var n = 0
-		while n < portals:
+		while n < portalTries and commonWalls.size() > 0:
 			var cell = commonWalls[rand_range(0,commonWalls.size())]
 			if not thisMaze.portals.has(cell.pos) and not nextMaze.portals.has(cell.pos):
 				#print( thisMaze.get_name() + " and " + nextMaze.get_name() + " do not have portals in " + str(cell.pos))
@@ -83,4 +87,4 @@ func createPortals():
 				thisMaze.portals[cell.pos] = w
 				nextMaze.portals[cell.pos] = w
 				
-				n += 1
+			n += 1

@@ -55,14 +55,14 @@ onready var sprite_motion = {
 ######################
 func _ready():
 	set_process_input(true)
-	set_fixed_process(true)
+	set_process(true)
 	var HUD = get_tree().get_root().get_node("HUD")
 	if !portalTimer.is_connected("timeout", self, "disablePortalProg"):
 		portalTimer.connect("timeout", self, "disablePortalProg")
 	if is_network_master() && !health.is_connected("healthChanged", HUD, "_on_Health_healthChanged"):
 		health.connect("healthChanged", HUD, "_on_Health_healthChanged")
 
-func _fixed_process(delta):
+func _process(delta):
 	# Grabbing directions from Input and transforming them into flags
 	var directions = int(Input.is_action_pressed("ui_up"))  << 0
 	directions	|= int(Input.is_action_pressed("ui_down"))  << 1
@@ -93,12 +93,12 @@ func _fixed_process(delta):
 		dir = slave_dir
 		angle = atan2(slave_dir.x,slave_dir.y)
 	
-	get_node("Canon").set_rot(0)
-	canonYScale = 0.2 - 0.03 * abs(sin(angle-PI/2))
-	get_node("Canon").set_scale(Vector2(0.2, canonYScale))
-	get_node("CollisionCanon").set_scale(Vector2(1, canonYScale/0.2))
-	get_node("Canon").set_rot(angle)
-	get_node("CollisionCanon").set_rot(angle)
+#	get_node("Canon").set_rot(0)
+#	canonYScale = 0.2 - 0.03 * abs(sin(angle-PI/2))
+#	get_node("Canon").set_scale(Vector2(0.2, canonYScale))
+#	get_node("CollisionCanon").set_scale(Vector2(1, canonYScale/0.2))
+#	get_node("Canon").set_rot(angle)
+#	get_node("CollisionCanon").set_rot(angle)
 		
 	if portalTimer.is_active():
 		var x =  100 - portalTimer.get_time_left()*100/portalTimer.get_wait_time()
@@ -155,8 +155,7 @@ func get_player_name():
 	return get_node("label").get_text()
 
 func set_player_color(color):
-	get_node("BlockTop").set_modulate(color)
-	get_node("BlockBottom").set_modulate(color)
+	get_node("Block").set_modulate(color)
 	get_node("Canon").set_modulate(color)
 
 func portalCountDown():
