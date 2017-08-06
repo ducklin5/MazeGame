@@ -76,7 +76,7 @@ func makeRooms (noOfRooms , grid):
 		#check if any of randRoom's cells are already in another room, if so it has collided
 		for k in randRoom.Cells:
 			for r in rooms:
-				if r.Cells.find(k) != -1:
+				if r.Cells.has(k):
 					collides = true; break
 			if collides == true:
 				break
@@ -103,7 +103,7 @@ func makeRooms (noOfRooms , grid):
 
 func drunkardWalk(grid,x):
 	var carved = 0
-	if visited.find(current) == -1 and x>0:
+	if visited.has(current) and x>0:
 		visited.append(current)
 		carved += 1
 	
@@ -118,7 +118,7 @@ func drunkardWalk(grid,x):
 			neighbors.append(u)
 		var next = neighbors[rand_range(0,neighbors.size())]
 		removeWalls(next,current,grid)
-		if visited.find(next) == -1:
+		if visited.has(next):
 			visited.append(next)
 			carved+=1
 		current = next
@@ -129,7 +129,7 @@ func rBactrackMaze (grid,x):
 	var carved = 0
 	var next
 	var stack = []
-	if visited.find(current) == -1 and x>0:
+	if !visited.has(current) and x>0:
 		visited.append(current)
 		carved += 1
 	while carved < ceil(x) and visited.size() < cols * rows:
@@ -173,7 +173,7 @@ func mergeRoomMaze():
 			var possibleDoorNeighbors = checkNeighbors(possibleDoor,grid,true)
 			var outOfRoomNeighbors = []
 			for k in possibleDoorNeighbors:
-				if i.Cells.find(k) == -1:
+				if !i.Cells.has(k):
 					outOfRoomNeighbors.append(k)
 			if outOfRoomNeighbors.size()>0:
 				roomDoor = possibleDoor
@@ -200,7 +200,7 @@ func checkNeighbors (vectorPos, grid, isVisited):
 	var unvisitedNeighbors = []
 		
 	for n in allNeighbors : 
-		if visited.find(n) != -1:
+		if visited.has(n):
 			visitedNeighbors.append(n)
 		else:
 			unvisitedNeighbors.append(n)
@@ -225,10 +225,10 @@ func removeWalls (a,b,grid) :
 	
 func drawWalls (a, grid):
 	# NWall is true if N is not "not found" in Array2d cell a
-	var NWall = grid[a.x][a.y].find(N) != -1
-	var EWall = grid[a.x][a.y].find(E) != -1
-	var SWall = grid[a.x][a.y].find(S) != -1
-	var WWall = grid[a.x][a.y].find(W) != -1
+	var NWall = grid[a.x][a.y].has(N) 
+	var EWall = grid[a.x][a.y].has(E) 
+	var SWall = grid[a.x][a.y].has(S) 
+	var WWall = grid[a.x][a.y].has(W) 
 	
 	var ground = get_node("Floor")
 	for x in range(3):
@@ -238,17 +238,17 @@ func drawWalls (a, grid):
 	if EWall: 
 		for y in range(3):
 			set_cell(a.x*3+2,a.y*3+y,2);	ground.set_cell(a.x*3+2,a.y*3+y,3)
-		if !NWall && grid[a.x][a.y-1].find(E) == -1:
+		if !NWall && !grid[a.x][a.y-1].has(E):
 			set_cell(a.x*3+2,a.y*3-1,5)
-		if !SWall && grid[a.x][a.y+1].find(E) == -1:
+		if !SWall && !grid[a.x][a.y+1].has(E):
 			set_cell(a.x*3+2,a.y*3+3,7)
 	#left
 	if WWall: 
 		for y in range(3):
 			set_cell(a.x*3,a.y*3+y,3);		ground.set_cell(a.x*3,a.y*3+y,4)
-		if !NWall && grid[a.x][a.y-1].find(W) == -1:
+		if !NWall && !grid[a.x][a.y-1].has(W):
 			set_cell(a.x*3,a.y*3-1,4)
-		if !SWall && grid[a.x][a.y+1].find(W) == -1:
+		if !SWall && !grid[a.x][a.y+1].has(W):
 			set_cell(a.x*3,a.y*3+3,6)
 	#top
 	if NWall:
@@ -256,11 +256,11 @@ func drawWalls (a, grid):
 			set_cell(a.x*3 + x ,a.y*3,0)
 		if EWall:
 			set_cell(a.x*3+2,a.y*3,4)
-		elif grid[a.x+1][a.y].find(N) == -1:
+		elif !grid[a.x+1][a.y].has(N):
 			set_cell(a.x*3+3,a.y*3,6)
 		if WWall:
 			set_cell(a.x*3,a.y*3,5)
-		elif grid[a.x-1][a.y].find(N) == -1:
+		elif !grid[a.x-1][a.y].has(N):
 			set_cell(a.x*3-1,a.y*3,7)
 	#bottom
 	if SWall:
@@ -268,11 +268,11 @@ func drawWalls (a, grid):
 			set_cell(a.x*3 + x,a.y*3+2,1)
 		if EWall:
 			set_cell(a.x*3+2,a.y*3+2,6)
-		elif grid[a.x+1][a.y].find(S) == -1:
+		elif !grid[a.x+1][a.y].has(S):
 			set_cell(a.x*3+3,a.y*3+2,4)
 		if WWall:
 			set_cell(a.x*3,a.y*3+2,7)
-		elif grid[a.x-1][a.y].find(S) == -1:
+		elif !grid[a.x-1][a.y].has(S):
 			set_cell(a.x*3-1,a.y*3+2,5)
 	
 	update()
@@ -283,7 +283,7 @@ func updateAll():
 		set_cell(i.x,i.y,-1)
 	for c in range(0,cols):
 		for r in range(0,rows):
-			if visited.find(Vector2(c,r)) != -1:
+			if visited.has(Vector2(c,r)):
 				drawWalls(Vector2(c,r),grid)
 	get_child(0).update()
 
