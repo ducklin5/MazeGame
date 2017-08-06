@@ -41,6 +41,7 @@ tabs_visible = true
 [node name="Host" type="Tabs" parent="connect/Tabs"]
 
 editor/display_folded = true
+visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
 hint/tooltip = "Host"
@@ -52,6 +53,37 @@ margin/left = 4.0
 margin/top = 32.0
 margin/right = 4.0
 margin/bottom = 4.0
+
+[node name="serverName" type="LineEdit" parent="connect/Tabs/Host"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 278.0
+margin/top = 30.0
+margin/right = 426.0
+margin/bottom = 59.0
+placeholder/alpha = 0.6
+expand_to_len = false
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
+
+[node name="serverNameLabel" type="Label" parent="connect/Tabs/Host/serverName"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -110.0
+margin/top = 8.0
+margin/right = -19.0
+margin/bottom = 24.0
+text = "Server Name:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="maxPlayers" type="SpinBox" parent="connect/Tabs/Host"]
 
@@ -99,7 +131,7 @@ margin/left = 150.0
 margin/top = 122.0
 margin/right = 284.0
 margin/bottom = 136.0
-text = "Your IP addresses:"
+text = "Your IP address:"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -133,7 +165,7 @@ flat = false
 
 [node name="Join" type="Tabs" parent="connect/Tabs"]
 
-visibility/visible = false
+editor/display_folded = true
 anchor/right = 1
 anchor/bottom = 1
 focus/ignore_mouse = false
@@ -158,7 +190,6 @@ margin/bottom = 168.0
 
 [node name="joinIP" type="Control" parent="connect/Tabs/Join"]
 
-editor/display_folded = true
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -167,21 +198,6 @@ margin/left = 200.0
 margin/top = 177.0
 margin/right = 210.0
 margin/bottom = 187.0
-
-[node name="joinIPLabel" type="Label" parent="connect/Tabs/Join/joinIP"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -100.0
-margin/top = 0.0
-margin/right = -60.0
-margin/bottom = 14.0
-text = "Join IP"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 
 [node name="a" type="SpinBox" parent="connect/Tabs/Join/joinIP"]
 
@@ -267,6 +283,21 @@ editable = true
 prefix = ""
 suffix = ""
 
+[node name="joinIPLabel" type="Label" parent="connect/Tabs/Join/joinIP"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -100.0
+margin/top = 0.0
+margin/right = -60.0
+margin/bottom = 14.0
+text = "Join IP"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="joinButton" type="Button" parent="connect/Tabs/Join"]
 
 focus/ignore_mouse = false
@@ -283,7 +314,7 @@ shortcut = null
 text = "Join Game"
 flat = false
 
-[node name="Button" type="Button" parent="connect/Tabs/Join"]
+[node name="refresh" type="Button" parent="connect/Tabs/Join"]
 
 focus/ignore_mouse = false
 focus/stop_mouse = true
@@ -301,7 +332,6 @@ flat = false
 
 [node name="Settings" type="Tabs" parent="connect/Tabs"]
 
-editor/display_folded = true
 visibility/visible = false
 anchor/right = 1
 anchor/bottom = 1
@@ -437,9 +467,11 @@ flat = false
 
 [connection signal="pressed" from="connect/Tabs/Host/hostButton" to="." method="_on_hostButton_pressed"]
 
+[connection signal="item_selected" from="connect/Tabs/Join/hostList" to="." method="_on_hostList_item_selected"]
+
 [connection signal="pressed" from="connect/Tabs/Join/joinButton" to="." method="_on_joinButton_pressed"]
 
-[connection signal="pressed" from="connect/Tabs/Join/Button" to="." method="refresh_hostList"]
+[connection signal="pressed" from="connect/Tabs/Join/refresh" to="." method="refresh_hostList"]
 
 [connection signal="text_changed" from="connect/Tabs/Settings/nick" to="." method="_on_nick_text_changed"]
 
