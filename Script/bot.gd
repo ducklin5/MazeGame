@@ -16,7 +16,7 @@ func _init():
 func think():
 	if state == ROAM:
 		var newRoamPoints = get_parent().get_parent().get_simple_path(get_global_pos(), globalDestination, false)
-		if roamPoints.size() < 0 or newRoamPoints.size() == 0: #set a new destination if the current destination is already reached or is unreachable 
+		if roamPoints.size() == 0 or newRoamPoints.size() == 0: #set a new destination if the current destination is already reached or is unreachable 
 			var checkpoints = get_parent().visited
 			var randCheckpoint = checkpoints[rand_range(0,checkpoints.size())] + Vector2(0.5,0.5)
 			globalDestination = get_parent().get_global_transform().xform(randCheckpoint * get_parent().get_cell_size() * 3)
