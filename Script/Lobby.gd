@@ -34,7 +34,7 @@ func _ready():
 	add_child(t)
 	t.start()
 	#get game servers on local network
-	
+	#hostList.set_fixed_column_width(10)
 	refresh_hostList()
 
 
@@ -53,11 +53,10 @@ func _on_hostButton_pressed():
 		gamestate.host_game(playerInfo, find_node("maxPlayers").get_value())
 		showWaitLobby()
 		refresh_lobby()
-		while(true):
+		while true:
 			var data = [MAGIC,get_node("connect/Tabs/Host/serverName").get_text()]
 			udp.put_var(data)
 			yield(t,"timeout")
-
 func refresh_hostList():
 	var err = udp.listen(DEFAULT_PORT)
 	if (err != OK):
@@ -72,8 +71,7 @@ func refresh_hostList():
 				var packet = udp.get_var()
 				var hostIP = udp.get_packet_ip()
 				var port = udp.get_packet_port()
-				
-				if packet[0] == MAGIC and !hostsArray.has(hostIP):
+				if typeof(packet) == TYPE_ARRAY and  packet[0] == MAGIC and !hostsArray.has(hostIP):
 					hostsArray.append(hostIP)
 					hostList.add_item(packet[1])
 			yield(t,"timeout")
@@ -82,6 +80,8 @@ func refresh_hostList():
 
 func _on_hostList_item_selected( index ):
 	var ip = hostsArray[index]
+	if IP.get_local_addresses().find(ip):
+		ip = '127.0.0.1'
 	var ipFloats = ip.split_floats(".")
 	for i in range (4):
 		joinIP.get_child(i).set_val(ipFloats[i])
@@ -91,9 +91,9 @@ func _on_joinButton_pressed():
 		invalidNick()
 	else:
 		var ip = ""
-		for i in range (4):
+		for i in range (3):
 			ip += str(joinIP.get_child(i).get_val())
-			if i < 3 : ip += "."
+			if i < 2 : ip += "."
 		var name = find_node("nick").get_text()
 		var color =  find_node("colorPick").get_color()
 		var playerInfo = {"name":name, "color":color}

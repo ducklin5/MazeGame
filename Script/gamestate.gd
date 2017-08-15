@@ -84,7 +84,15 @@ func begin_game():
 	for p in players:
 		peer2spawnPoint[p] = spawnpoints[spawnIndex]
 		spawnIndex += 1
-	#print(peer2spawnPoint) #print peer2spawnPoint for debugging
+		
+	var playerLayer = 0
+	for p in players:
+		for s in spawnpoints:
+			if s.layerIndex == playerLayer:
+				peer2spawnPoint[p] = s
+				playerLayer += 1
+				break;
+	print(peer2spawnPoint) #print peer2spawnPoint for debugging
 	#print("players:" + str(players)) #print players for debugging
 	#Call to pre-start game on all peers with the spawn points 
 	rpc("pre_start_game", peer2spawnPoint)
@@ -101,14 +109,13 @@ sync func pre_start_game(peer2spawnPoint):
 		
 		if get_tree().get_network_unique_id() == p_id:
 			player.set_network_mode(NETWORK_MODE_MASTER)
-			#player.get_node("camera").make_current()
-			
+			player.get_node("camera").make_current()
 		else:
 			player.set_network_mode(NETWORK_MODE_SLAVE)
 		
 		player.set_name(str(p_id)) # Use unique ID as node name
-		player.set_player_name(players[p_id].name)
-		player.set_player_color(players[p_id].color)
+		player.set_character_name(players[p_id].name)
+		player.set_character_color(players[p_id].color)
 		player.set_pos(spawn.spawnPos)
 		var x = pow(2,spawn.layerIndex)
 		player.set_collision_mask(x)
@@ -118,7 +125,6 @@ sync func pre_start_game(peer2spawnPoint):
 		var world = get_tree().get_root().get_node("World")
 		world.get_node(str(spawn.layerIndex)).add_child(player)
 		world.get_node(str(spawn.layerIndex)).set_maze_color(players[p_id].color)
-		
 # add a randomly generated 3d maze and also return the its SpawnPoints Array
 remote func add_world(worldSeed):
 	#new world instance
@@ -126,5 +132,11 @@ remote func add_world(worldSeed):
 	world.randomSeed = worldSeed
 	world.layers = players.size() + 1
 	get_tree().get_root().add_child(world)
+	
+	var bot = load("res://Scenes/Bot.tscn")
+	var bot0 = bot.instance()
+	bot0.set_pos(world.SpawnPoints[1].spawnPos)
+	world.get_node(str(0)).add_child(bot0)
+	
 	#return array of spawn point dictionaries in the format {"layerIndex": int, "spawnPos": vector2d}
 	return world.SpawnPoints

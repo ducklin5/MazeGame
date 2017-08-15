@@ -4,7 +4,7 @@ var shooter = {"id" : "0", "name" : "unknown"}
 var hasLeftShooter = false
 var canTeleport = false
 var motion=Vector2(1,0)
-const ADVANCE_SPEED = 200
+const ADVANCE_SPEED = 2000
 
 signal portalMe
 
@@ -28,7 +28,7 @@ func _ready():
 func _on_area_body_enter( body ):
 	if body != self and (body.get_name() != shooter.id || hasLeftShooter ):
 		hit = true
-		if body.is_in_group("player"):
+		if body.is_in_group("character"):
 			body.health.hit(10, shooter)
 	if hit:
 		queue_free()

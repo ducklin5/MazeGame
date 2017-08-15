@@ -1,0 +1,107 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://Script/Character.gd" type="Script" id=1]
+[ext_resource path="res://Spritesheets/Player.png" type="Texture" id=2]
+[ext_resource path="res://Spritesheets/Halo.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Health.tscn" type="PackedScene" id=4]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -37.5, -50, 37.5, -50, 37.5, 50, -37.5, 50 )
+
+[node name="Character" type="KinematicBody2D" groups=[ "character" ]]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.001
+script/script = ExtResource( 1 )
+canTeleport = true
+
+[node name="Sprite" type="Sprite" parent="."]
+
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 75, 75 )
+
+[node name="spriteShape" type="CollisionPolygon2D" parent="."]
+
+build_mode = 0
+polygon = Vector2Array( -37.5, -50, 37.5, -50, 37.5, 50, -37.5, 50 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="haloLight" type="Light2D" parent="."]
+
+transform/pos = Vector2( -1.09139e-11, 9.31245 )
+z/z = 5
+enabled = true
+editor_only = false
+texture = ExtResource( 3 )
+offset = Vector2( 0, 0 )
+scale = 0.5
+color = Color( 1, 1, 1, 1 )
+energy = 1.5
+mode = 0
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0.770471 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
+__meta__ = { "_edit_lock_":true }
+
+[node name="label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -23.0
+margin/top = -38.0
+margin/right = 16.0
+margin/bottom = -20.0
+text = "Player"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="portalProg" type="ProgressBar" parent="."]
+
+visibility/visible = false
+rect/scale = Vector2( 0.3, 0.3 )
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = -10.0
+margin/top = -26.0
+margin/right = 52.0
+margin/bottom = -10.0
+range/min = 0.0
+range/max = 100.0
+range/step = 1.0
+range/page = 0.0
+range/value = 0.0
+range/exp_edit = false
+range/rounded = false
+percent/visible = true
+
+[node name="portalTimer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = true
+autostart = false
+
+[node name="Health" parent="." instance=ExtResource( 4 )]
+
+

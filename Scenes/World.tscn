@@ -2,9 +2,8 @@
 
 [ext_resource path="res://Script/World.gd" type="Script" id=1]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Navigation2D"]
 
-transform/pos = Vector2( 2.15092, 1.07545 )
 script/script = ExtResource( 1 )
 
 

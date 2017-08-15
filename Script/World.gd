@@ -4,7 +4,7 @@ const mazeLayerScene = preload("res://Scenes/MazeLayer.tscn")
 var layers = 2
 var randomSeed = 1
 var SpawnPoints = []
-var portalTries = 3
+var portalTries = 6
 
 func _ready():
 	var mazeLayer
@@ -15,7 +15,7 @@ func _ready():
 		mazeLayer.set_name(str(l))
 		mazeLayer.set_collision_layer(pow(2,l))
 		mazeLayer.set_collision_mask(pow(2,l))
-		mazeLayer.set_pos(Vector2((l*mazeLayer.cols+l)*(150*3)*0.15,10))
+		mazeLayer.set_pos(Vector2((l*mazeLayer.cols+l)*150*3,10))
 		#mazeLayer.hide()
 		add_child(mazeLayer)
 		for c in mazeLayer.get_node("SpawnPoints").get_children():
