@@ -8,7 +8,7 @@ enum {N=0,E=1,S=2,W=3}
 
 onready var SpawnPoints = get_node("SpawnPoints")
 
-var roomsValue = 2
+var roomsValue = 3
 var rooms = []
 
 var grid = []
@@ -99,7 +99,6 @@ func makeRooms (noOfRooms , grid):
 			#add the room to the rooms array
 			rooms.append(randRoom)
 			
-	update()
 
 func drunkardWalk(grid,x):
 	var carved = 0
@@ -279,7 +278,6 @@ func drawWalls (a, grid):
 	update()
 
 func drawGround():
-	print("ping")
 	var ground = get_node("Ground")
 	for v in visited:
 		for x in range (3):

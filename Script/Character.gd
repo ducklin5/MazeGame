@@ -110,8 +110,8 @@ slave func shoot(lookDir = lookDir):
 	bullet.motion = lookDir
 	bullet.set_layer_mask(get_layer_mask())
 	bullet.set_collision_mask(get_layer_mask())
-	get_parent().add_child(bullet)
 	bullet.set_pos(get_pos())
+	get_parent().add_child(bullet)
 
 
 func set_character_name(name):

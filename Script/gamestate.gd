@@ -123,8 +123,8 @@ sync func pre_start_game(peer2spawnPoint):
 		
 		#add player to scene
 		var world = get_tree().get_root().get_node("World")
-		world.get_node(str(spawn.layerIndex)).add_child(player)
-		world.get_node(str(spawn.layerIndex)).set_maze_color(players[p_id].color)
+		world.get_child(spawn.layerIndex).add_child(player)
+		world.get_child(spawn.layerIndex).set_maze_color(players[p_id].color)
 # add a randomly generated 3d maze and also return the its SpawnPoints Array
 remote func add_world(worldSeed):
 	#new world instance
@@ -133,10 +133,26 @@ remote func add_world(worldSeed):
 	world.layers = players.size() + 1
 	get_tree().get_root().add_child(world)
 	
-	var bot = load("res://Scenes/Bot.tscn")
-	var bot0 = bot.instance()
-	bot0.set_pos(world.SpawnPoints[1].spawnPos)
-	world.get_node(str(0)).add_child(bot0)
+	###/** Seperate Bot spawn points from player Spawn Points **/####
+	var PlayerSpawnPoits = []
+	var BotSpawnPoints = []
+	var l 
+	for s in world.SpawnPoints:
+		if l != s.layerIndex:
+			PlayerSpawnPoits.append(s)
+			l = s.layerIndex
+		else:
+			BotSpawnPoints.append(s)
 	
+	var botScene = load("res://Scenes/Bot.tscn")
+	for s in range(BotSpawnPoints.size()):
+		var bot = botScene.instance()
+		var spawn = BotSpawnPoints[s]
+		bot.set_pos(spawn.spawnPos)
+		world.get_child(spawn.layerIndex).add_child(bot)
+		var x = pow(2,spawn.layerIndex)
+		bot.set_collision_mask(x)
+		bot.set_layer_mask(x)
+		
 	#return array of spawn point dictionaries in the format {"layerIndex": int, "spawnPos": vector2d}
-	return world.SpawnPoints
+	return PlayerSpawnPoits

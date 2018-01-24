@@ -1,7 +1,7 @@
 extends Node2D
 
 const mazeLayerScene = preload("res://Scenes/MazeLayer.tscn")
-var layers = 2
+var layers = 3
 var randomSeed = 1
 var SpawnPoints = []
 var portalTries = 6
@@ -12,7 +12,7 @@ func _ready():
 	for l in range(layers):
 		mazeLayer = mazeLayerScene.instance()
 		mazeLayer.randomSeed = randi()
-		mazeLayer.set_name(str(l))
+		mazeLayer.set_name("layer"+str(l))
 		mazeLayer.set_collision_layer(pow(2,l))
 		mazeLayer.set_collision_mask(pow(2,l))
 		mazeLayer.set_pos(Vector2((l*mazeLayer.cols+l)*150*3,10))
@@ -33,14 +33,14 @@ func commonWallCheck(grid_A, grid_B, x, y):
 func createPortals():
 	var portal = load("res://Scenes/Portal.tscn")
 	for l in range(layers):
-		var thisMaze = get_node(str(l))
+		var thisMaze = get_child(l)
 		var next 
 		if l == layers - 1 :
 			next = 0
 		else:
 			next = l+1
 			
-		var nextMaze = get_node(str(next))
+		var nextMaze = get_child(next)
 		
 		var commonWalls = []
 		#for evevry visited cell in this maze
